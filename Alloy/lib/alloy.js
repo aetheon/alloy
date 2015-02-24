@@ -136,7 +136,7 @@ exports.M = function(name, modelDesc, migrations) {
 	if (adapter.type) {
 		mod = require('alloy/sync/' + adapter.type);
 		extendObj.sync = function(method, model, opts) {
-			mod.sync(method, model, opts);
+			return mod.sync(method, model, opts);
 		};
 	} else {
 		extendObj.sync = function(method, model, opts) {
@@ -179,7 +179,7 @@ exports.C = function(name, modelDesc, model) {
 	if (config.adapter && config.adapter.type) {
 		mod = require('alloy/sync/' + config.adapter.type);
 		extendObj.sync = function(method, model, opts) {
-			mod.sync(method,model,opts);
+			return mod.sync(method,model,opts);
 		};
 	} else {
 		extendObj.sync = function(method, model, opts) {
@@ -643,7 +643,7 @@ function deepExtend() {
 					continue;
 				}
 
-				if (deep && copy && _.isObject(copy) && ((copy_is_array = _.isArray(copy)) || !_.has(copy, 'apiName'))) {
+				if (deep && copy && ((_.isObject(copy) && !_.has(copy, 'apiName')) || (copy_is_array = _.isArray(copy))) && !copy.colors) {
 					// Recurse if we're merging plain objects or arrays
 					if (copy_is_array) {
 						copy_is_array = false;
@@ -660,7 +660,7 @@ function deepExtend() {
 				// Don't bring in undefined values
 				} else if (typeof copy !== 'undefined') {
 					target[name] = copy;
-				}
+				} 
 			}
 		}
 	}

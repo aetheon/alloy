@@ -52,6 +52,11 @@ function Controller() {
 	// Extend the $ instance with all functions and properties
 	// defined on the exports object.
 	_.extend($, exports);
+
+    // Call post construct
+    if ($.postConstruct) {
+            $.postConstruct();
+    }
 }
 
 module.exports = Controller;
