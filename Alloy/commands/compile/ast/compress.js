@@ -29,7 +29,10 @@ exports.process = function(ast, config) {
 		evaluate      : true,   // evaluate constant expressions
 		booleans      : false,   // optimize boolean expressions
 		loops         : false,   // optimize loops
-		unused        : true,   // drop unused variables/functions
+		
+		/// fix stack trace problems
+		unused        : false,   // drop unused variables/functions
+		
 		hoist_funs    : true,   // hoist function declarations
 		hoist_vars    : false,  // hoist variable declarations
 		if_return     : false,   // optimize if-s followed by return/continue
